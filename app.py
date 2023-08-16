@@ -1,7 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from models import util
 
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('app.html')
 
 @app.route('/get_location_names', methods=['GET'])
 def get_location_names():
@@ -36,21 +40,24 @@ def get_availability():
 
 @app.route('/predict_home_price', methods=['GET', 'POST'])
 def predict_home_price():
-    size = int(request.form['size'])
-    total_sqft = float(request.form['total_sqft'])
-    bath = int(request.form['bath'])
-    balcony = int(request.form['balcony'])
-    area_type = request.form['area_type']
-    location = request.form['location']
-    month_availability = request.form['month_availability']
+     if request.method=='GET':
+        return render_template('home.html')
+     else:
+        size = int(request.form['size'])
+        total_sqft = float(request.form['total_sqft'])
+        bath = int(request.form['bath'])
+        balcony = int(request.form['balcony'])
+        area_type = request.form['area_type']
+        location = request.form['location']
+        month_availability = request.form['month_availability']
 
-    response = jsonify({
-        'estimated_price': util.predict_price(**{'size': size, 'total_sqft': total_sqft, 'bath': bath, 'balcony': balcony,\
-                                                 'area_type': area_type, 'location': location, 'month_availability': month_availability})
-    })
-    response.headers.add('Access-Control-Allow-Origin', '*')
+        response = jsonify({
+            'estimated_price': util.predict_price(**{'size': size, 'total_sqft': total_sqft, 'bath': bath, 'balcony': balcony,\
+                                                    'area_type': area_type, 'location': location, 'month_availability': month_availability})
+        })
+        response.headers.add('Access-Control-Allow-Origin', '*')
 
-    return response
+        return response
 
 if __name__ == "__main__":
     print("Starting Python Flask Server For Home Price Prediction...")
