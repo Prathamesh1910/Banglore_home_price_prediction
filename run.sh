@@ -1,4 +1,5 @@
 #!/bin/bash
+echo ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}
 
 # Pull the latest Docker image
 docker pull $AWS_ECR_LOGIN_URI/$ECR_REPOSITORY_NAME:latest
