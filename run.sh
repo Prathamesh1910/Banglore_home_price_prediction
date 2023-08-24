@@ -13,5 +13,5 @@ fi
 docker run -d -p 8080:8080 --ipc="host" --name=mltest1 \
     -e "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" \
     -e "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" \
-    -e "AWS_REGION=$AWS_REGI
+    -e "AWS_REGION=$AWS_REGION
     
