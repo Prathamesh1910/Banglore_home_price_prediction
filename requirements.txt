@@ -62,3 +62,4 @@ PyJWT==2.8.0
 pyparsing==3.0.9
 python-dateutil==2.8.2
 pytz==2023.3
+flask-cors
