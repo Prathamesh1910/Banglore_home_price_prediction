@@ -1,3 +1,5 @@
+const BASE_URL = window.location.href
+
 function getBathValue() {
     var uiBathrooms = document.getElementsByName("uiBathrooms");
     for(var i in uiBathrooms) {
@@ -39,7 +41,7 @@ function onClickedEstimatePrice() {
     var month_availability = document.getElementById("uiAvailability");
     var estPrice = document.getElementById("uiEstimatedPrice");
   
-    var url = "http://127.0.0.1:5000/predict_home_price"; 
+    var url =BASE_URL + "/predict_home_price"; 
    
     $.post(url, {
         size: size,
@@ -59,7 +61,7 @@ function onClickedEstimatePrice() {
 
 function onPageLoad_location() {
     console.log( "document loaded" );
-    var url = "http://127.0.0.1:5000/get_location_names"; 
+    var url = BASE_URL + "/get_location_names"; 
 
     $.get(url,function(data, status) {
         console.log("got response for get_location_names request");
@@ -77,7 +79,7 @@ function onPageLoad_location() {
 
 function onPageLoad_area_type() {
     console.log( "document loaded" );
-    var url = "http://127.0.0.1:5000/get_area_type"; 
+    var url = BASE_URL + "/get_area_type"; 
 
     $.get(url,function(data, status) {
         console.log("got response for get_area_type request");
@@ -95,7 +97,7 @@ function onPageLoad_area_type() {
 
 function onPageLoad_availability() {
     console.log( "document loaded" );
-    var url = "http://127.0.0.1:5000/get_availability"; 
+    var url = BASE_URL + "/get_availability"; 
 
     $.get(url,function(data, status) {
         console.log("got response for get_area_type request");
