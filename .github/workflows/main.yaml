@@ -83,7 +83,21 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
       
       
-      - name: Run Bash Script
+      - name: Pull latest images
         run: |
-          chmod +x run.sh
-          ./run.sh
+         docker pull ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+         
+      - name: Stop and remove  container if running
+        run: |
+         if docker ps -q --filter "name=mltest1" | grep -q .; then
+          docker stop mltest1
+          docker rm -fv mltest1
+          fi
+          echo "bwahahahahhahahah"
+          
+      - name: Run Docker Image to serve users
+        run: |
+         docker run -d -p 80:8080 --ipc="host" --name=mltest1 -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' -e 'AWS_REGION=${{ secrets.AWS_REGION }}'  ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+      - name: Clean previous images and containers
+        run: |
+         docker system prune -f
