@@ -13,5 +13,8 @@ fi
 docker run -d -p 8080:8080 --ipc="host" --name=mltest1 \
     -e "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" \
     -e "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" \
-    -e "AWS_REGION=$AWS_REGION
-    
+    -e "AWS_REGION=$AWS_REGION" \
+    $AWS_ECR_LOGIN_URI/$ECR_REPOSITORY_NAME:latest
+
+# Clean previous images and containers
+docker system prune -f
