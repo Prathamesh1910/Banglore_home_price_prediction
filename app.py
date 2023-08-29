@@ -29,14 +29,14 @@ def get_area_type():
     return response
 
 
-@app.route('/get_availability', methods=['GET'])
-def get_availability():
-    response = jsonify({
-        'availability': util.get_availability()
-    })
-    response.headers.add('Access-Control-Allow-Origin', '*')
-
-    return response
+# @app.route('/get_availability', methods=['GET'])
+# def get_availability():
+#     response = jsonify({
+#         'availability': util.get_availability()
+#     })
+#     response.headers.add('Access-Control-Allow-Origin', '*')
+#
+#     return response
 
 
 
@@ -51,11 +51,11 @@ def predict_home_price():
         balcony = int(request.form['balcony'])
         area_type = request.form['area_type']
         location = request.form['location']
-        month_availability = request.form['month_availability']
+        # month_availability = request.form['month_availability']
 
         response = jsonify({
             'estimated_price': util.predict_price(**{'size': size, 'total_sqft': total_sqft, 'bath': bath, 'balcony': balcony,\
-                                                    'area_type': area_type, 'location': location, 'month_availability': month_availability})
+                                                    'area_type': area_type, 'location': location})
         })
         response.headers.add('Access-Control-Allow-Origin', '*')
 
