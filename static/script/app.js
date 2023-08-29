@@ -8,7 +8,7 @@ function getBathValue() {
       }
     }
     return -1; // Invalid Value
-  }  
+  }
 
 function getBHKValue() {
     var uiBHK = document.getElementsByName("uiBHK");
@@ -38,11 +38,11 @@ function onClickedEstimatePrice() {
     var balcony = getBalconyValue();
     var area_type = document.getElementById("uiAreaTypes");
     var location = document.getElementById("uiLocations");
-    var month_availability = document.getElementById("uiAvailability");
+//    var month_availability = document.getElementById("uiAvailability");
     var estPrice = document.getElementById("uiEstimatedPrice");
   
-    var url =BASE_URL + "/predict_home_price"; 
-   
+    var url =BASE_URL + "/predict_home_price";
+
     $.post(url, {
         size: size,
         total_sqft: parseFloat(total_sqft.value),
@@ -50,10 +50,10 @@ function onClickedEstimatePrice() {
         balcony: balcony,
         area_type: area_type.value,
         location: location.value,
-        month_availability: month_availability.value
+//        month_availability: month_availability.value
     },function(data, status) {
         console.log(data.estimated_price);
-        estPrice.innerHTML = "<h2>" + data.estimated_price.toString() + " Lakh</h2>";
+        estPrice.innerHTML = "<h2>" + data.estimated_price.toString() + " Lakhs</h2>";
         console.log(status);
     });
   }
@@ -61,7 +61,7 @@ function onClickedEstimatePrice() {
 
 function onPageLoad_location() {
     console.log( "document loaded" );
-    var url = BASE_URL + "/get_location_names"; 
+    var url = BASE_URL + "/get_location_names";
 
     $.get(url,function(data, status) {
         console.log("got response for get_location_names request");
@@ -79,7 +79,7 @@ function onPageLoad_location() {
 
 function onPageLoad_area_type() {
     console.log( "document loaded" );
-    var url = BASE_URL + "/get_area_type"; 
+    var url = BASE_URL + "/get_area_type";
 
     $.get(url,function(data, status) {
         console.log("got response for get_area_type request");
@@ -95,27 +95,29 @@ function onPageLoad_area_type() {
     });
   }
 
-function onPageLoad_availability() {
-    console.log( "document loaded" );
-    var url = BASE_URL + "/get_availability"; 
-
-    $.get(url,function(data, status) {
-        console.log("got response for get_area_type request");
-        if(data) {
-            var availability = data.availability;
-            var uiAvailability = document.getElementById("uiAvailability");
-            $('#uiAvailability').empty();
-            for(var i in availability) {
-                var opt = new Option(availability[i]);
-                $('#uiAvailability').append(opt);
-            }
-        }
-    });
-  }
+//function onPageLoad_availability() {
+//    console.log( "document loaded" );
+//
+//    var url = BASE_URL + "/get_availability";
+//    var url = BASE_URL + "/get_availability";
+//
+//    $.get(url,function(data, status) {
+//        console.log("got response for get_area_type request");
+//        if(data) {
+//            var availability = data.availability;
+//            var uiAvailability = document.getElementById("uiAvailability");
+//            $('#uiAvailability').empty();
+//            for(var i in availability) {
+//                var opt = new Option(availability[i]);
+//                $('#uiAvailability').append(opt);
+//            }
+//        }
+//    });
+//  }
   
 function onPageLoad() {
     onPageLoad_location();
     onPageLoad_area_type();
-    onPageLoad_availability();
+//    onPageLoad_availability();
 }
 window.onload = onPageLoad;
